@@ -8,24 +8,22 @@ import org.testng.annotations.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Initial test only, ignore
+ */
 public class FirstTest {
 
     public AndroidDriver driver;
 
     @BeforeTest
     public void setUp() throws MalformedURLException {
-        String appiumServerURL = "http://127.0.0.1:4723";
-
-        //update this always
-        String appPath = "C:\\Users\\Asus\\IdeaProjects\\Celestia_AppiumTest\\apps\\CocoByCelestia.apk";
-
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("appium:automationName", "uiautomator2");
-        capabilities.setCapability("appium:app", appPath);
+        capabilities.setCapability("appium:app", Config.APP_PATH);
 //        capabilities.setCapability("appium:app", System.getProperty("user.dir") + "/apps/CocoByCelestia.apk") ;
 
-        driver = new AndroidDriver(new URL(appiumServerURL), capabilities);
+        driver = new AndroidDriver(new URL(Config.appiumServerURL), capabilities);
     }
 
     @Test
