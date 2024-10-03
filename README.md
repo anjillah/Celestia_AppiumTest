@@ -2,6 +2,7 @@
 Automated Testing for Coco (Mobile App) by Celestia
 
 This program is written in Java and uses Maven for build automation.
+
 **NOTE: Testing was tried directly under the project sa android studio pero may compatibilty issues, 
         tried to fix it kaso mahirap and mabigat rin, so I tried other ways -- IntelliJ
         Ngayon, I tried with Java and Maven, gumana ung test. Then, I tried na isunod sa Kotlin and Gradle
