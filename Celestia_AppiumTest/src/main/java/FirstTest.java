@@ -16,12 +16,14 @@ public class FirstTest {
     public void setUp() throws MalformedURLException {
         String appiumServerURL = "http://127.0.0.1:4723";
 
+        //update this always
+        String appPath = "C:\\Users\\Asus\\IdeaProjects\\Celestia_AppiumTest\\apps\\CocoByCelestia.apk";
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
-//        capabilities.setCapability("platformVersion", "8.0");
-//        capabilities.setCapability("deviceName", "Android Emulator");
         capabilities.setCapability("appium:automationName", "uiautomator2");
-        capabilities.setCapability("appium:app", "C:\\Users\\Asus\\IdeaProjects\\Celestia_AppiumTest\\App\\CocoByCelestia.apk");
+        capabilities.setCapability("appium:app", appPath);
+//        capabilities.setCapability("appium:app", System.getProperty("user.dir") + "/apps/CocoByCelestia.apk") ;
 
         driver = new AndroidDriver(new URL(appiumServerURL), capabilities);
     }
@@ -42,6 +44,6 @@ public class FirstTest {
 
     @AfterTest
     public void tearDown() {
-//        driver.quit();
+        driver.quit();
     }
 }
