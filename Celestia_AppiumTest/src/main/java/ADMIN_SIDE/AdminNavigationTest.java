@@ -1,33 +1,18 @@
 package ADMIN_SIDE;
 
-import Constant.DriverConfig;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class AdminNavigationTest {
     AndroidDriver driver;
 
-    @BeforeTest
-    public void setUp() throws Exception {
-        driver = DriverConfig.getDriver();
-    }
-
     @Test
     public void admin_navigation() throws Exception {
 // === LOGIN PAGE ===
-        //Input email
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                "android.view.View/android.widget.EditText[1]")).sendKeys("duane.chan19@gmail.com");
-        //input password
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                "android.view.View/android.widget.EditText[2]")).sendKeys("potangina");
-        //click login button
-        driver.findElement(AppiumBy.xpath("//android.widget.Button")).click();
-
-        Thread.sleep(2000);
+        Admin_Constants adminConstants = new Admin_Constants();
+        driver = adminConstants.admin_login();
 
 
 // === NAVIGATION ===
@@ -52,30 +37,10 @@ public class AdminNavigationTest {
         Thread.sleep(1000);
 
 
-// === USER LOGOUT ===
-        //click logout button
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/" +
-                "android.view.View/android.view.View/android.view.View[2]")).click();
-        Thread.sleep(1000);
-
-        //click cancel logout button
-        driver.findElement(AppiumBy.xpath("//android.view.ViewGroup/android.view.View/android.view.View/" +
-                "android.view.View/android.view.View/android.view.View[1]")).click();
-        Thread.sleep(1000);
-
-        //click logout button
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/" +
-                "android.view.View/android.view.View/android.view.View[2]")).click();
-        Thread.sleep(1000);
-
-        //click confirm logout button
-        driver.findElement(AppiumBy.xpath("//android.view.ViewGroup/android.view.View/android.view.View/" +
-                "android.view.View/android.view.View/android.view.View[2]")).click();
-        Thread.sleep(1000);
+// === ADMIN LOGOUT ===
+        driver = adminConstants.admin_logout();
     }
 
     @AfterTest
-    public void tearDown() {
-//        driver.quit();
-    }
-}
+    public void tearDown() {driver.quit();}
+} //end

@@ -1,0 +1,45 @@
+package ADMIN_SIDE;
+
+import Constant.Config;
+import Constant.DriverConfig;
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.AndroidDriver;
+import java.net.MalformedURLException;
+import static io.appium.java_client.AppiumBy.*;
+
+
+/**
+ * Admin Login and Logout constants for easier readability, management and less duplicate codes
+ */
+public class Admin_Constants {
+    AndroidDriver driver;
+
+    public Admin_Constants() throws MalformedURLException {
+        driver = DriverConfig.getDriver();
+    }
+
+    public AndroidDriver admin_login() throws Exception {
+        //input email
+        String ADMIN_EMAIL = "duane.chan19@gmail.com";
+        driver.findElement(xpath(Config.EmailField_Appium_xpath)).sendKeys(ADMIN_EMAIL);
+
+        //input password
+        String ADMIN_PASSWORD = "potangina";
+        driver.findElement(xpath(Config.PasswordField_Appium_xpath)).sendKeys(ADMIN_PASSWORD);
+
+        //click login button
+        driver.findElement(xpath(Config.LoginButton_Appium_xpath)).click();
+
+        Thread.sleep(2000);
+
+        return driver;
+    }
+
+    public AndroidDriver admin_logout() {
+        driver.findElement(AppiumBy.xpath(Config.LogoutButton_Appium_xpath)).click();
+        driver.findElement(AppiumBy.xpath(Config.CancelLogoutButton_Appium_xpath)).click();
+        driver.findElement(AppiumBy.xpath(Config.LogoutButton_Appium_xpath)).click();
+        driver.findElement(AppiumBy.xpath(Config.ConfirmLogoutButton_Appium_xpath)).click();
+        return driver;
+    }
+} //end
