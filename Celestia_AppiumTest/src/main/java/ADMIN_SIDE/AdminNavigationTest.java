@@ -11,7 +11,7 @@ public class AdminNavigationTest {
     @Test
     public void admin_navigation() throws Exception {
 // === LOGIN PAGE ===
-        Admin_Constants adminConstants = new Admin_Constants();
+        Admin adminConstants = new Admin();
         driver = adminConstants.admin_login();
 
 

@@ -17,65 +17,37 @@ AndroidDriver driver;
     }
 
     @Test
-    public void farmer_navigation() throws InterruptedException {
+    public void farmer_navigation() throws Exception {
 // === LOGIN PAGE ===
-    //Input email
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                        "android.view.View/android.widget.EditText[1]")).sendKeys("bini_maloi@gmail.com");
-        //input password
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                        "android.view.View/android.widget.EditText[2]")).sendKeys("qwertyui");
-        //click login button
-        driver.findElement(AppiumBy.xpath("//android.widget.Button")).click();
-
-        Thread.sleep(2000);
+        Farmer farmerConstants = new Farmer();
+        driver = farmerConstants.farmer_login();
 
 // === NAVIGATION ===
-        //Click on Dashboard page
+        //Click on dashboard
+//        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
+//                        "android.view.View/android.view.View[2]/android.view.View/android.view.View[1]")).click();
+//        Thread.sleep(1000);
+
+        //Click on orders page
         driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                        "android.view.View/android.view.View[2]/android.view.View/android.view.View[1]")).click();
+                "android.view.View/android.view.View[2]/android.view.View/android.view.View[2]")).click();
         Thread.sleep(1000);
 
-        //Click on Orders Page
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                        "android.view.View/android.view.View[2]/android.view.View/android.view.View[2]")).click();
-        Thread.sleep(1000);
-
-        //go to Items Page
+        //go to items page
         driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
                         "android.view.View/android.view.View[2]/android.view.View/android.view.View[3]")).click();
         Thread.sleep(1000);
 
-        //go to Profile
+        //go to profile
         driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
                         "android.view.View/android.view.View[3]/android.view.View/android.view.View[4]")).click();
         Thread.sleep(1000);
 
 
-// === USER LOGOUT ===
-        //logout user - button
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                        "android.view.View/android.view.View[2]")).click();
-        Thread.sleep(1000);
-
-        //cancel logout - button
-        driver.findElement(AppiumBy.xpath("//android.view.ViewGroup/android.view.View/android.view.View/android.view.View/" +
-                "android.view.View/android.view.View[1]")).click();
-        Thread.sleep(1000);
-
-        //logout user - button
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                "android.view.View/android.view.View[2]")).click();
-        Thread.sleep(1000);
-
-        //confirm logout - button
-        driver.findElement(AppiumBy.xpath("//android.view.ViewGroup/android.view.View/android.view.View/android.view.View/" +
-                        "android.view.View/android.view.View[2]")).click();
-        Thread.sleep(1000);
+// === FARMER LOGOUT ===
+        driver = farmerConstants.farmer_logout();
     }
 
     @AfterTest
-    public void tearDown() {
-    driver.quit();
-    }
+    public void tearDown() {driver.quit();}
 } //end

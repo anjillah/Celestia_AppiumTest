@@ -18,22 +18,15 @@ public class ClientNavigationTest {
     @Test
     public void client_navigation() throws Exception {
 // === LOGIN PAGE ===
-        //Input email
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                        "android.view.View/android.widget.EditText[1]")).sendKeys("bini_colet@gmail.com");
-        //input password
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                        "android.view.View/android.widget.EditText[2]")).sendKeys("12345678");
-        //click login button
-        driver.findElement(AppiumBy.xpath("//android.widget.Button")).click();
-
-        Thread.sleep(2000);
+       Client clientConstants = new Client();
+       driver = clientConstants.client_login();
 
 // === NAVIGATION ===
         //Click on Dashboard page
-//        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-//                        "android.view.View/android.view.View[2]/android.view.View/android.view.View[1]/android.view.View[2]")).click();
-//        Thread.sleep(1000);
+        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
+                        "android.view.View/android.view.View[2]/android.view.View/android.view.View[1]/android.view.View[1]")).click();
+        Thread.sleep(1000);
+
         //Click on Orders Page
         driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
                 "android.view.View/android.view.View[2]/android.view.View/android.view.View[2]")).click();
@@ -50,30 +43,10 @@ public class ClientNavigationTest {
         Thread.sleep(1000);
 
 
-// === USER LOGOUT ===
-        //logout user - button
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                "android.view.View/android.view.View[2]")).click();
-        Thread.sleep(1000);
-
-        //cancel logout - button
-        driver.findElement(AppiumBy.xpath("//android.view.ViewGroup/android.view.View/android.view.View/android.view.View/" +
-                "android.view.View/android.view.View[1]")).click();
-        Thread.sleep(1000);
-
-        //logout user - button
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
-                "android.view.View/android.view.View[2]")).click();
-        Thread.sleep(1000);
-
-        //confirm logout - button
-        driver.findElement(AppiumBy.xpath("//android.view.ViewGroup/android.view.View/android.view.View/android.view.View/" +
-                "android.view.View/android.view.View[2]")).click();
-        Thread.sleep(1000);
+// === CLIENT LOGOUT ===
+        driver = clientConstants.client_logout();
     }
 
     @AfterTest
-    public void tearDown() {
-        driver.quit();
-    }
+    public void tearDown() {driver.quit();}
 } //end

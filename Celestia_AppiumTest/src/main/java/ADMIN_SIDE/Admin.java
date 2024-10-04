@@ -11,10 +11,10 @@ import static io.appium.java_client.AppiumBy.*;
 /**
  * Admin Login and Logout constants for easier readability, management and less duplicate codes
  */
-public class Admin_Constants {
+public class Admin {
     AndroidDriver driver;
 
-    public Admin_Constants() throws MalformedURLException {
+    public Admin() throws MalformedURLException {
         driver = DriverConfig.getDriver();
     }
 
@@ -35,11 +35,15 @@ public class Admin_Constants {
         return driver;
     }
 
-    public AndroidDriver admin_logout() {
+    public AndroidDriver admin_logout() throws InterruptedException {
         driver.findElement(AppiumBy.xpath(Config.LogoutButton_Appium_xpath)).click();
+        Thread.sleep(1000);
         driver.findElement(AppiumBy.xpath(Config.CancelLogoutButton_Appium_xpath)).click();
+        Thread.sleep(1000);
         driver.findElement(AppiumBy.xpath(Config.LogoutButton_Appium_xpath)).click();
+        Thread.sleep(1000);
         driver.findElement(AppiumBy.xpath(Config.ConfirmLogoutButton_Appium_xpath)).click();
+        Thread.sleep(1000);
         return driver;
     }
 } //end
