@@ -16,7 +16,7 @@ public class ClientNavigationTest {
     }
 
     @Test
-    public void test1() throws Exception {
+    public void client_navigation() throws Exception {
 // === LOGIN PAGE ===
         //Input email
         driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/" +
