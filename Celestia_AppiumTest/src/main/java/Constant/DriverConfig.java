@@ -1,8 +1,11 @@
+package Constant;
+
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Class for constant @BeforeTest setup
@@ -14,6 +17,10 @@ public class DriverConfig {
         capabilities.setCapability("appium:automationName", Config.AUTOMATION_NAME);
         capabilities.setCapability("appium:app", Config.APP_PATH);
 
-        return new AndroidDriver(new URL(Config.appiumServerURL), capabilities);
+        try {
+            return new AndroidDriver(new URI(Config.appiumServerURL).toURL(), capabilities);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

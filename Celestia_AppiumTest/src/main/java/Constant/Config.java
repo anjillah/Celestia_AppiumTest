@@ -1,3 +1,5 @@
+package Constant;
+
 /**
  * Class to hold constants
  */
