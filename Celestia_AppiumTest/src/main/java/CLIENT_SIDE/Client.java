@@ -24,7 +24,7 @@ public class Client {
         driver.findElement(AppiumBy.xpath(Config.PasswordField_Appium_xpath)).sendKeys(CLIENT_PASSWORD);
 
         //click login button
-        driver.findElement(AppiumBy.xpath(Config.LoginButton_Appium_xpath)).click();
+        driver.findElement(AppiumBy.className("android.widget.Button")).click();
 
         Thread.sleep(2000);
 

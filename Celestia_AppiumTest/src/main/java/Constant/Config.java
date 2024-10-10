@@ -6,11 +6,13 @@ package Constant;
 public class Config {
     public static final String PLATFORM_NAME = "Android";
     public static final String AUTOMATION_NAME = "uiautomator2";
-    public static String APP_PATH = "C:\\Users\\Asus\\IdeaProjects\\Celestia_AppiumTest\\apps\\CocoByCelestia.apk";
+    public static String APP_PATH = System.getProperty("user.dir") + "\\apps\\app-release.apk";
+
     public static String appiumServerURL = "http://127.0.0.1:4723";
 
 
     //LOGIN PATHS
+    //NOTE to self: contentDesc cant be used because it's not clickable
     public static final String EmailField_Appium_xpath = "//androidx.compose.ui.platform.ComposeView/android.view.View/" +
             "android.view.View/android.view.View/android.widget.EditText[1]";
 

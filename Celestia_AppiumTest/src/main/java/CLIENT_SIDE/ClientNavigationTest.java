@@ -48,5 +48,7 @@ public class ClientNavigationTest {
     }
 
     @AfterTest
-    public void tearDown() {driver.quit();}
+    public void tearDown() {
+//        driver.quit();
+    }
 } //end

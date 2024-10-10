@@ -24,7 +24,7 @@ public class Farmer {
         driver.findElement(AppiumBy.xpath(Config.PasswordField_Appium_xpath)).sendKeys(FARMER_PASSWORD);
 
         //click login button
-        driver.findElement(AppiumBy.xpath("//android.widget.Button")).click();
+        driver.findElement(AppiumBy.className("android.widget.Button")).click();
 
         Thread.sleep(2000);
 

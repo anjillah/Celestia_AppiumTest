@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Initial test only
@@ -16,7 +17,8 @@ public class FirstTest {
 
     public AndroidDriver driver;
     public String appiumServerURL = "http://127.0.0.1:4723";
-    public String app_path = "C:\\Users\\Asus\\IdeaProjects\\Celestia_AppiumTest\\apps\\CocoByCelestia.apk";
+    public String app_path = System.getProperty("user.dir") + "\\apps\\app-release.apk";
+
 
     @BeforeTest
     public void setUp() throws MalformedURLException {
@@ -24,10 +26,10 @@ public class FirstTest {
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("appium:automationName", "uiautomator2");
         capabilities.setCapability("appium:app", app_path);
-//        capabilities.setCapability("appium:app", System.getProperty("user.dir") + "/apps/CocoByCelestia.apk") ;
 
         try {
             driver = new AndroidDriver(new URI(appiumServerURL).toURL(), capabilities);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -36,13 +38,15 @@ public class FirstTest {
     @Test
     public void test() throws InterruptedException {
         //Input email
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.widget.EditText[1]"))
+        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/" +
+                        "android.view.View/android.view.View/android.widget.EditText[1]"))
                 .sendKeys("bini_maloi@gmail.com");
         //input password
-        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.widget.EditText[2]"))
+        driver.findElement(AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/" +
+                        "android.view.View/android.view.View/android.widget.EditText[2]"))
                 .sendKeys("qwertyui");
         //click login button
-        driver.findElement(AppiumBy.xpath("//android.widget.Button")).click();
+        driver.findElement(AppiumBy.className("android.widget.Button")).click();
 
         Thread.sleep(10000);
     }

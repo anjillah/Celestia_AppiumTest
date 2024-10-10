@@ -28,7 +28,7 @@ public class Admin {
         driver.findElement(xpath(Config.PasswordField_Appium_xpath)).sendKeys(ADMIN_PASSWORD);
 
         //click login button
-        driver.findElement(xpath(Config.LoginButton_Appium_xpath)).click();
+        driver.findElement(AppiumBy.className("android.widget.Button")).click();
 
         Thread.sleep(2000);
 
