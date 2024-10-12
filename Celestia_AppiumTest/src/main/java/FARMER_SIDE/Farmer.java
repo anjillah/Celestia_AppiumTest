@@ -17,14 +17,14 @@ public class Farmer {
     public AndroidDriver farmer_login() throws Exception{
         //input email
         String FARMER_EMAIL = "bini_maloi@gmail.com";
-        driver.findElement(AppiumBy.xpath(Config.EmailField_Appium_xpath)).sendKeys(FARMER_EMAIL);
+        driver.findElement(AppiumBy.id("android:id/emailField")).sendKeys(FARMER_EMAIL);
 
         //input password
         String FARMER_PASSWORD = "qwertyui";
-        driver.findElement(AppiumBy.xpath(Config.PasswordField_Appium_xpath)).sendKeys(FARMER_PASSWORD);
+        driver.findElement(AppiumBy.id("android:id/passwordField")).sendKeys(FARMER_PASSWORD);
 
         //click login button
-        driver.findElement(AppiumBy.className("android.widget.Button")).click();
+        driver.findElement(AppiumBy.id("android:id/loginButton")).click();
 
         Thread.sleep(2000);
 
