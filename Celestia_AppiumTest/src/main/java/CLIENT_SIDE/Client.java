@@ -17,11 +17,11 @@ public class Client {
     public AndroidDriver client_login() throws Exception {
         //Input email
         String CLIENT_EMAIL = "bini_colet@gmail.com";
-        driver.findElement(AppiumBy.xpath(Config.EmailField_Appium_xpath)).sendKeys(CLIENT_EMAIL);
+        driver.findElement(AppiumBy.xpath(Config.EmailField_AppiumId)).sendKeys(CLIENT_EMAIL);
 
         //input password
         String CLIENT_PASSWORD = "12345678";
-        driver.findElement(AppiumBy.xpath(Config.PasswordField_Appium_xpath)).sendKeys(CLIENT_PASSWORD);
+        driver.findElement(AppiumBy.xpath(Config.PasswordField_AppiumId)).sendKeys(CLIENT_PASSWORD);
 
         //click login button
         driver.findElement(AppiumBy.className("android.widget.Button")).click();
@@ -32,11 +32,11 @@ public class Client {
     }
 
     public AndroidDriver client_logout() throws Exception {
-        driver.findElement(AppiumBy.xpath(Config.LogoutButton_Appium_xpath)).click();
+        driver.findElement(AppiumBy.xpath(Config.LogoutButton_AppiumId)).click();
         Thread.sleep(1000);
         driver.findElement(AppiumBy.xpath(Config.CancelLogoutButton_Appium_xpath)).click();
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.LogoutButton_Appium_xpath)).click();
+        driver.findElement(AppiumBy.xpath(Config.LogoutButton_AppiumId)).click();
         Thread.sleep(1000);
         driver.findElement(AppiumBy.xpath(Config.ConfirmLogoutButton_Appium_xpath)).click();
         Thread.sleep(1000);

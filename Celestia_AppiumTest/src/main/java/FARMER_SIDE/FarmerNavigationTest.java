@@ -46,6 +46,9 @@ public class FarmerNavigationTest {
         // === End Test by Staying on Profile ===
         navigateToPageWithDelay("android:id/profilePage", "Profile");  // Ensure we end on Profile page and stay there
         Thread.sleep(5000);
+
+        //logout
+        driver = farmerConstants.farmer_logout();
     }
 
     // Helper method to confirm the current page and wait for 2-3 seconds before navigating back

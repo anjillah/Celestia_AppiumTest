@@ -21,11 +21,11 @@ public class Admin {
     public AndroidDriver admin_login() throws Exception {
         //input email
         String ADMIN_EMAIL = "duane.chan19@gmail.com";
-        driver.findElement(xpath(Config.EmailField_Appium_xpath)).sendKeys(ADMIN_EMAIL);
+        driver.findElement(xpath(Config.EmailField_AppiumId)).sendKeys(ADMIN_EMAIL);
 
         //input password
         String ADMIN_PASSWORD = "potangina";
-        driver.findElement(xpath(Config.PasswordField_Appium_xpath)).sendKeys(ADMIN_PASSWORD);
+        driver.findElement(xpath(Config.PasswordField_AppiumId)).sendKeys(ADMIN_PASSWORD);
 
         //click login button
         driver.findElement(AppiumBy.className("android.widget.Button")).click();
@@ -36,11 +36,11 @@ public class Admin {
     }
 
     public AndroidDriver admin_logout() throws InterruptedException {
-        driver.findElement(AppiumBy.xpath(Config.LogoutButton_Appium_xpath)).click();
+        driver.findElement(AppiumBy.xpath(Config.LogoutButton_AppiumId)).click();
         Thread.sleep(1000);
         driver.findElement(AppiumBy.xpath(Config.CancelLogoutButton_Appium_xpath)).click();
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.LogoutButton_Appium_xpath)).click();
+        driver.findElement(AppiumBy.xpath(Config.LogoutButton_AppiumId)).click();
         Thread.sleep(1000);
         driver.findElement(AppiumBy.xpath(Config.ConfirmLogoutButton_Appium_xpath)).click();
         Thread.sleep(1000);
