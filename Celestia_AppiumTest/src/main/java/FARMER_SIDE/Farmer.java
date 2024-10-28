@@ -31,11 +31,11 @@ public class Farmer {
         driver.findElement(AppiumBy.id(Config.LOGOUT_BUTTON)).click(); //click Logout button on Profile
         Thread.sleep(1000);
 
-        driver.findElement(AppiumBy.xpath(Config.CANCEL_LOGOUT)).click(); //cancel logout
+        driver.findElement(AppiumBy.id(Config.CANCEL_LOGOUT)).click(); //cancel logout
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.LOGOUT_BUTTON)).click(); //click Logout button on Profile
+        driver.findElement(AppiumBy.id(Config.LOGOUT_BUTTON)).click(); //click Logout button on Profile
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.CONFIRM_LOGOUT)).click(); //confirm logout
+        driver.findElement(AppiumBy.id(Config.CONFIRM_LOGOUT)).click(); //confirm logout
         Thread.sleep(1000);
 
         return driver;

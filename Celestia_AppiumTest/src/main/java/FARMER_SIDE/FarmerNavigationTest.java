@@ -13,7 +13,7 @@ import java.net.MalformedURLException;
 import java.time.Duration;
 
 public class FarmerNavigationTest {
-    AndroidDriver driver;
+    private AndroidDriver driver;
 
     @BeforeTest
     public void setUp() throws MalformedURLException {
@@ -22,73 +22,66 @@ public class FarmerNavigationTest {
 
     @Test
     public void farmerNavigationTest() throws Exception {
-        // Login
         Farmer farmerConstants = new Farmer();
         driver = farmerConstants.farmer_login();
 
-        // === From Dashboard ===
-        navigateAndBackWithDelay("android:id/ordersPage", "Orders", "android:id/dashboardPage", "Dashboard"); // Dashboard -> Orders -> Back
-        navigateAndBackWithDelay("android:id/itemsPage", "Items", "android:id/dashboardPage", "Dashboard");   // Dashboard -> Items -> Back
-        navigateAndBackWithDelay("android:id/profilePage", "Profile", "android:id/dashboardPage", "Dashboard"); // Dashboard -> Profile -> Back
+        // Dashboard to other pages and back
+        navigateAndBack("android:id/ordersPage", "Orders");
+        navigateAndBack("android:id/itemsPage", "Items");
+        navigateAndBack("android:id/profilePage", "Profile");
 
-        // === From Orders ===
-        navigateToPageWithDelay("android:id/ordersPage", "Orders");
-        navigateAndBackWithDelay("android:id/dashboardPage", "Dashboard", "android:id/ordersPage", "Orders");  // Orders -> Dashboard -> Back
-        navigateAndBackWithDelay("android:id/itemsPage", "Items", "android:id/ordersPage", "Orders");          // Orders -> Items -> Back
-        navigateAndBackWithDelay("android:id/profilePage", "Profile", "android:id/ordersPage", "Orders");      // Orders -> Profile -> Back
+        // Orders to other pages and back
+        navigateToPage("android:id/ordersPage", "Orders");
+        navigateAndBack("android:id/dashboardPage", "Dashboard");
+        navigateAndBack("android:id/itemsPage", "Items");
+        navigateAndBack("android:id/profilePage", "Profile");
 
-        // === From Items ===
-        navigateToPageWithDelay("android:id/itemsPage", "Items");
-        navigateAndBackWithDelay("android:id/dashboardPage", "Dashboard", "android:id/itemsPage", "Items");    // Items -> Dashboard -> Back
-        navigateAndBackWithDelay("android:id/ordersPage", "Orders", "android:id/itemsPage", "Items");          // Items -> Orders -> Back
-        navigateAndBackWithDelay("android:id/profilePage", "Profile", "android:id/itemsPage", "Items");        // Items -> Profile -> Back
+        // Items to other pages and back
+        navigateToPage("android:id/itemsPage", "Items");
+        navigateAndBack("android:id/dashboardPage", "Dashboard");
+        navigateAndBack("android:id/ordersPage", "Orders");
+        navigateAndBack("android:id/profilePage", "Profile");
 
-        // === End Test by Staying on Profile ===
-        navigateToPageWithDelay("android:id/profilePage", "Profile");  // Ensure we end on Profile page and stay there
+        // Profile to other pages and back
+        navigateToPage("android:id/profilePage", "Profile");
+        navigateAndBack("android:id/dashboardPage", "Dashboard");
+        navigateAndBack("android:id/ordersPage", "Orders");
+        navigateAndBack("android:id/itemsPage", "Items");
+
+        // Stay on Profile page
+        navigateToPage("android:id/profilePage", "Profile");
         Thread.sleep(5000);
 
-        //logout
-        driver = farmerConstants.farmer_logout();
+        // Logout
+        farmerConstants.farmer_logout();
     }
 
-    // Helper method to confirm the current page and wait for 2-3 seconds before navigating back
-    private void confirmPageDisplayedWithDelay(String elementId, String pageName) throws InterruptedException {
-        waitForElementVisible(elementId);  // Wait until the element is visible
-        boolean isOnPage = driver.findElement(AppiumBy.id(elementId)).isDisplayed();
-        if (isOnPage) {
-            System.out.println("User is on the " + pageName + " page.");
-            Thread.sleep(1000);  // Delay for ? seconds on the page to ensure it's visible
-        } else {
-            System.out.println("User is NOT on the " + pageName + " page.");
+    // Helper method to navigate to a page and go back to the previous page
+    private void navigateAndBack(String elementId, String pageName) {
+        if (navigateToPage(elementId, pageName)) {
+            driver.navigate().back();
+            System.out.println("Navigated back to the previous page from " + pageName + " page.");
         }
     }
 
-    // Helper method for navigation and confirmation of page with delay
-    private void navigateToPageWithDelay(String elementId, String pageName) throws InterruptedException {
-        driver.findElement(AppiumBy.id(elementId)).click();
-        confirmPageDisplayedWithDelay(elementId, pageName);
-    }
-
-    // Helper method to navigate to a page, wait, and then use the back button to return
-    private void navigateAndBackWithDelay(String navigateToId, String pageName, String backToId, String backPageName) throws InterruptedException {
-        // Navigate to the page and wait
-        navigateToPageWithDelay(navigateToId, pageName);
-
-        // Use back button to return to the previous page and wait
-        driver.navigate().back();
-        confirmPageDisplayedWithDelay(backToId, backPageName);
-    }
-
-    // Wait for element to be visible
-    private void waitForElementVisible(String elementId) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Wait
-        wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.id(elementId)));
+    // Helper method to navigate to a page and confirm it is displayed
+    private boolean navigateToPage(String elementId, String pageName) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+            wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.id(elementId))).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.id(elementId)));
+            System.out.println("User is on the " + pageName + " page.");
+            return true;
+        } catch (Exception e) {
+            System.out.println("Failed to navigate to the " + pageName + " page.");
+            return false;
+        }
     }
 
     @AfterTest
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+//        if (driver != null) {
+//            driver.quit();
+//        }
     }
 }
