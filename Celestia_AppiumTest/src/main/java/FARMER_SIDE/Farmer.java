@@ -15,16 +15,12 @@ public class Farmer {
     }
 
     public AndroidDriver farmer_login() throws Exception{
-        //input email
         String FARMER_EMAIL = "bini_maloi@gmail.com";
-        driver.findElement(AppiumBy.id(Config.EMAIL_FIELD)).sendKeys(FARMER_EMAIL);
-
-        //input password
         String FARMER_PASSWORD = "qwertyui";
-        driver.findElement(AppiumBy.id(Config.PASSWORD_FIELD)).sendKeys(FARMER_PASSWORD);
 
-        //click login button
-        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();
+        driver.findElement(AppiumBy.id(Config.EMAIL_FIELD)).sendKeys(FARMER_EMAIL); //input email
+        driver.findElement(AppiumBy.id(Config.PASSWORD_FIELD)).sendKeys(FARMER_PASSWORD); //input password
+        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();//click login button
 
         Thread.sleep(2000);
 
@@ -32,18 +28,14 @@ public class Farmer {
     }
 
     public AndroidDriver farmer_logout() throws InterruptedException {
-//        public static final
-
-
-        driver.findElement(AppiumBy.id(Config.LOGOUT_BUTTON)).click();
+        driver.findElement(AppiumBy.id(Config.LOGOUT_BUTTON)).click(); //click Logout button on Profile
         Thread.sleep(1000);
 
-
-        driver.findElement(AppiumBy.xpath(Config.CANCEL_LOGOUT)).click();
+        driver.findElement(AppiumBy.xpath(Config.CANCEL_LOGOUT)).click(); //cancel logout
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.LOGOUT_BUTTON)).click();
+        driver.findElement(AppiumBy.xpath(Config.LOGOUT_BUTTON)).click(); //click Logout button on Profile
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.CONFIRM_LOGOUT)).click();
+        driver.findElement(AppiumBy.xpath(Config.CONFIRM_LOGOUT)).click(); //confirm logout
         Thread.sleep(1000);
 
         return driver;
