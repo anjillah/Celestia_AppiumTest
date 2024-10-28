@@ -4,7 +4,6 @@ import Constant.Config;
 import Constant.DriverConfig;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import org.testng.annotations.BeforeTest;
 
 import java.net.MalformedURLException;
 
@@ -19,11 +18,24 @@ public class Coop {
         String COOP_EMAIL = "coop@gmail.com";
         String COOP_PASSWORD = "Coop123";
 
-        driver.findElement(AppiumBy.id(Config.EmailField_AppiumId)).sendKeys(COOP_EMAIL);
-        driver.findElement(AppiumBy.id(Config.PasswordField_AppiumId)).sendKeys(COOP_PASSWORD);
-        driver.findElement(AppiumBy.id(Config.LoginButton_AppiumId)).click();
+        driver.findElement(AppiumBy.id(Config.EMAIL_FIELD)).sendKeys(COOP_EMAIL);
+        driver.findElement(AppiumBy.id(Config.PASSWORD_FIELD)).sendKeys(COOP_PASSWORD);
+        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();
 
         Thread.sleep(2000);
+
+        return driver;
+    }
+
+    public AndroidDriver coop_logout() throws Exception {
+        driver.findElement(AppiumBy.xpath(Config.LOGOUT_BUTTON)).click();
+        Thread.sleep(1000);
+        driver.findElement(AppiumBy.xpath(Config.CANCEL_LOGOUT)).click();
+        Thread.sleep(1000);
+        driver.findElement(AppiumBy.xpath(Config.LOGOUT_BUTTON)).click();
+        Thread.sleep(1000);
+        driver.findElement(AppiumBy.xpath(Config.CONFIRM_LOGOUT)).click();
+        Thread.sleep(1000);
 
         return driver;
     }

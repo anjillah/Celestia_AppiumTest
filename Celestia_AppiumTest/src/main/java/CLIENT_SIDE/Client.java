@@ -15,16 +15,12 @@ public class Client {
     }
 
     public AndroidDriver client_login() throws Exception {
-        //Input email
         String CLIENT_EMAIL = "bini_colet@gmail.com";
-        driver.findElement(AppiumBy.xpath(Config.EmailField_AppiumId)).sendKeys(CLIENT_EMAIL);
-
-        //input password
         String CLIENT_PASSWORD = "12345678";
-        driver.findElement(AppiumBy.xpath(Config.PasswordField_AppiumId)).sendKeys(CLIENT_PASSWORD);
 
-        //click login button
-        driver.findElement(AppiumBy.className("android.widget.Button")).click();
+        driver.findElement(AppiumBy.xpath(Config.EMAIL_FIELD)).sendKeys(CLIENT_EMAIL); //Input email
+        driver.findElement(AppiumBy.xpath(Config.PASSWORD_FIELD)).sendKeys(CLIENT_PASSWORD); //input password
+        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();//click login button
 
         Thread.sleep(2000);
 
@@ -32,13 +28,13 @@ public class Client {
     }
 
     public AndroidDriver client_logout() throws Exception {
-        driver.findElement(AppiumBy.xpath(Config.LogoutButton_AppiumId)).click();
+        driver.findElement(AppiumBy.xpath(Config.LOGOUT_BUTTON)).click();
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.CancelLogoutButton_Appium_xpath)).click();
+        driver.findElement(AppiumBy.xpath(Config.CANCEL_LOGOUT)).click();
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.LogoutButton_AppiumId)).click();
+        driver.findElement(AppiumBy.xpath(Config.LOGOUT_BUTTON)).click();
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.ConfirmLogoutButton_Appium_xpath)).click();
+        driver.findElement(AppiumBy.xpath(Config.CONFIRM_LOGOUT)).click();
         Thread.sleep(1000);
 
         return driver;

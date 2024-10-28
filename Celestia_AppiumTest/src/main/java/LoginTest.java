@@ -23,9 +23,9 @@ public class LoginTest {
         String FARMER_EMAIL = "bini_maloi@gmail.com";
         String FARMER_PASSWORD = "qwertyui";
 
-        driver.findElement(AppiumBy.id(Config.EmailField_AppiumId)).sendKeys(FARMER_EMAIL);
-        driver.findElement(AppiumBy.id(Config.PasswordField_AppiumId)).sendKeys(FARMER_PASSWORD);
-        driver.findElement(AppiumBy.id(Config.LoginButton_AppiumId)).click();
+        driver.findElement(AppiumBy.id(Config.EMAIL_FIELD)).sendKeys(FARMER_EMAIL);
+        driver.findElement(AppiumBy.id(Config.PASSWORD_FIELD)).sendKeys(FARMER_PASSWORD);
+        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();
 
         Thread.sleep(2000);
 
@@ -42,9 +42,9 @@ public class LoginTest {
         String FARMER_EMAIL = "bini_maloigmail.com";  // Invalid format
         String FARMER_PASSWORD = "qwertyui";
 
-        driver.findElement(AppiumBy.id(Config.EmailField_AppiumId)).sendKeys(FARMER_EMAIL);
-        driver.findElement(AppiumBy.id(Config.PasswordField_AppiumId)).sendKeys(FARMER_PASSWORD);
-        driver.findElement(AppiumBy.id(Config.LoginButton_AppiumId)).click();
+        driver.findElement(AppiumBy.id(Config.EMAIL_FIELD)).sendKeys(FARMER_EMAIL);
+        driver.findElement(AppiumBy.id(Config.PASSWORD_FIELD)).sendKeys(FARMER_PASSWORD);
+        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();
 
         Thread.sleep(2000);
 
@@ -64,9 +64,9 @@ public class LoginTest {
         String FARMER_EMAIL = "bini_maloi@gmail.com";
         String FARMER_PASSWORD = "wrongpassword"; // Incorrect password
 
-        driver.findElement(AppiumBy.id(Config.EmailField_AppiumId)).sendKeys(FARMER_EMAIL);
-        driver.findElement(AppiumBy.id(Config.PasswordField_AppiumId)).sendKeys(FARMER_PASSWORD);
-        driver.findElement(AppiumBy.id(Config.LoginButton_AppiumId)).click();
+        driver.findElement(AppiumBy.id(Config.EMAIL_FIELD)).sendKeys(FARMER_EMAIL);
+        driver.findElement(AppiumBy.id(Config.PASSWORD_FIELD)).sendKeys(FARMER_PASSWORD);
+        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();
 
         Thread.sleep(2000);
 
@@ -85,9 +85,9 @@ public class LoginTest {
     public void testEmptyEmailField() throws Exception {
         String FARMER_PASSWORD = "qwertyui";
 
-        driver.findElement(AppiumBy.id(Config.EmailField_AppiumId)).sendKeys(""); // Empty email field
-        driver.findElement(AppiumBy.id(Config.PasswordField_AppiumId)).sendKeys(FARMER_PASSWORD);
-        driver.findElement(AppiumBy.id(Config.LoginButton_AppiumId)).click();
+        driver.findElement(AppiumBy.id(Config.EMAIL_FIELD)).sendKeys(""); // Empty email field
+        driver.findElement(AppiumBy.id(Config.PASSWORD_FIELD)).sendKeys(FARMER_PASSWORD);
+        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();
 
         Thread.sleep(2000);
 
@@ -106,9 +106,9 @@ public class LoginTest {
     public void testEmptyPasswordField() throws Exception {
         String FARMER_EMAIL = "bini_maloi@gmail.com";
 
-        driver.findElement(AppiumBy.id(Config.EmailField_AppiumId)).sendKeys(FARMER_EMAIL);
-        driver.findElement(AppiumBy.id(Config.PasswordField_AppiumId)).sendKeys(""); // Empty password field
-        driver.findElement(AppiumBy.id(Config.LoginButton_AppiumId)).click();
+        driver.findElement(AppiumBy.id(Config.EMAIL_FIELD)).sendKeys(FARMER_EMAIL);
+        driver.findElement(AppiumBy.id(Config.PASSWORD_FIELD)).sendKeys(""); // Empty password field
+        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();
 
         Thread.sleep(2000);
 
@@ -125,9 +125,9 @@ public class LoginTest {
 
     @Test
     public void testBothFieldsEmpty() throws Exception {
-        driver.findElement(AppiumBy.id(Config.EmailField_AppiumId)).sendKeys(""); // Empty email field
-        driver.findElement(AppiumBy.id(Config.PasswordField_AppiumId)).sendKeys(""); // Empty password field
-        driver.findElement(AppiumBy.id(Config.LoginButton_AppiumId)).click();
+        driver.findElement(AppiumBy.id(Config.EMAIL_FIELD)).sendKeys(""); // Empty email field
+        driver.findElement(AppiumBy.id(Config.PASSWORD_FIELD)).sendKeys(""); // Empty password field
+        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();
 
         Thread.sleep(2000);
 
@@ -147,9 +147,9 @@ public class LoginTest {
         String FARMER_EMAIL = "bini_maloi@gmail.com' OR '1'='1'--"; // SQL injection attempt
         String FARMER_PASSWORD = "qwertyui";
 
-        driver.findElement(AppiumBy.id(Config.EmailField_AppiumId)).sendKeys(FARMER_EMAIL);
-        driver.findElement(AppiumBy.id(Config.PasswordField_AppiumId)).sendKeys(FARMER_PASSWORD);
-        driver.findElement(AppiumBy.id(Config.LoginButton_AppiumId)).click();
+        driver.findElement(AppiumBy.id(Config.EMAIL_FIELD)).sendKeys(FARMER_EMAIL);
+        driver.findElement(AppiumBy.id(Config.PASSWORD_FIELD)).sendKeys(FARMER_PASSWORD);
+        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();
 
         Thread.sleep(2000);
 
@@ -169,9 +169,9 @@ public class LoginTest {
         String FARMER_EMAIL = "bini_maloi@gmail.com";
         String FARMER_PASSWORD = "' OR '1'='1'--"; // SQL injection attempt
 
-        driver.findElement(AppiumBy.id(Config.EmailField_AppiumId)).sendKeys(FARMER_EMAIL);
-        driver.findElement(AppiumBy.id(Config.PasswordField_AppiumId)).sendKeys(FARMER_PASSWORD);
-        driver.findElement(AppiumBy.id(Config.LoginButton_AppiumId)).click();
+        driver.findElement(AppiumBy.id(Config.EMAIL_FIELD)).sendKeys(FARMER_EMAIL);
+        driver.findElement(AppiumBy.id(Config.PASSWORD_FIELD)).sendKeys(FARMER_PASSWORD);
+        driver.findElement(AppiumBy.id(Config.LOGIN_BUTTON)).click();
 
         Thread.sleep(2000);
 
@@ -189,8 +189,8 @@ public class LoginTest {
     @AfterTest
     public void tearDown() {
         // Clean up if needed
-//        if (driver != null) {
-//            driver.quit();
-//        }
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
