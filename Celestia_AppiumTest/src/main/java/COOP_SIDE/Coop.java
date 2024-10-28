@@ -28,13 +28,13 @@ public class Coop {
     }
 
     public AndroidDriver coop_logout() throws Exception {
-        driver.findElement(AppiumBy.xpath(Config.LOGOUT_BUTTON)).click();
+        driver.findElement(AppiumBy.id(Config.LOGOUT_BUTTON)).click();
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.CANCEL_LOGOUT)).click();
+        driver.findElement(AppiumBy.id(Config.CANCEL_LOGOUT)).click();
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.LOGOUT_BUTTON)).click();
+        driver.findElement(AppiumBy.id(Config.LOGOUT_BUTTON)).click();
         Thread.sleep(1000);
-        driver.findElement(AppiumBy.xpath(Config.CONFIRM_LOGOUT)).click();
+        driver.findElement(AppiumBy.id(Config.CONFIRM_LOGOUT)).click();
         Thread.sleep(1000);
 
         return driver;
