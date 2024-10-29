@@ -28,6 +28,7 @@ public class Coop {
     }
 
     public AndroidDriver coop_logout() throws Exception {
+        driver.findElement(AppiumBy.id("android:id/profilePage")).click();
         driver.findElement(AppiumBy.id(Config.LOGOUT_BUTTON)).click();
         Thread.sleep(1000);
         driver.findElement(AppiumBy.id(Config.CANCEL_LOGOUT)).click();
