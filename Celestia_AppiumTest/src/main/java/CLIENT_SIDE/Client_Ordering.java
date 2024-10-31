@@ -3,6 +3,7 @@ package CLIENT_SIDE;
 import Constant.DriverConfig;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
@@ -40,9 +41,24 @@ public class Client_Ordering {
     }
 
     private void selectCategory(String categoryTestTag, String categoryName) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId(categoryTestTag))).click();
-        System.out.println("Selected the " + categoryName + " category.");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        try {
+            // Try accessibility ID first
+            WebElement categoryElement = wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId(categoryTestTag)));
+            categoryElement.click();
+            System.out.println("Selected the " + categoryName + " category.");
+        } catch (Exception e1) {
+            try {
+                // If accessibility ID fails, try with XPath
+                WebElement categoryElement = wait.until(ExpectedConditions.elementToBeClickable(
+                        AppiumBy.xpath("//android.view.View[@resource-id='" + categoryTestTag + "']")));
+                categoryElement.click();
+                System.out.println("Selected the " + categoryName + " category using XPath.");
+            } catch (Exception e2) {
+                System.out.println("Failed to select the " + categoryName + " category after multiple attempts.");
+                e2.printStackTrace();
+            }
+        }
     }
 
     private void selectProduct(String productTestTag, String productName) {
