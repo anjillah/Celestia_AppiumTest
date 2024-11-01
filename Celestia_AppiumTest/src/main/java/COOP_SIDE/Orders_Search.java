@@ -1,13 +1,12 @@
 package COOP_SIDE;
 
 import Constant.DriverConfig;
-import com.beust.ah.A;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class Orders_Preparing {
+public class Orders_Search {
     private AndroidDriver driver;
 
     @BeforeTest
@@ -22,14 +21,16 @@ public class Orders_Preparing {
     @Test
     public void test(){
         String ORDERS_PAGE = "android:id/ordersPage";
-        String PREPARING_BUTTON = "android:id/PreparingButton";
+        String SEARCH = "android:id/searchText";
+        String WORD = "KINIING";
 
         //navigate to Orders screen
         driver.findElement(AppiumBy.id(ORDERS_PAGE)).click();
 
-        //navigate to Preparing
-        driver.findElement(AppiumBy.id(PREPARING_BUTTON)).click();
+        //navigate to Delivering
+        driver.findElement(AppiumBy.id(SEARCH)).sendKeys(WORD);
 
+        //print out the search results -- if empty or there a searches
 
     }
 }

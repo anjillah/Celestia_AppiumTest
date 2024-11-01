@@ -7,7 +7,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class Orders_Preparing {
+public class Orders_Calendar {
     private AndroidDriver driver;
 
     @BeforeTest
@@ -21,15 +21,12 @@ public class Orders_Preparing {
 
     @Test
     public void test(){
-        String ORDERS_PAGE = "android:id/ordersPage";
-        String PREPARING_BUTTON = "android:id/PreparingButton";
+        String CALENDAR_ICON = "Calendar Icon";
 
-        //navigate to Orders screen
-        driver.findElement(AppiumBy.id(ORDERS_PAGE)).click();
+        //navigate to calendar
+        driver.findElement(AppiumBy.accessibilityId(CALENDAR_ICON)).click();
 
-        //navigate to Preparing
-        driver.findElement(AppiumBy.id(PREPARING_BUTTON)).click();
-
+        //continue
+    }
 
     }
-}
