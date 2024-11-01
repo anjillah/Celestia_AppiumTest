@@ -20,7 +20,7 @@ public class Admin {
 
     public AndroidDriver admin_login() throws Exception {
         String ADMIN_EMAIL = "duane.chan19@gmail.com";
-        String ADMIN_PASSWORD = "potangina";
+        String ADMIN_PASSWORD = "potangina1";
 
         driver.findElement(xpath(Config.EMAIL_FIELD)).sendKeys(ADMIN_EMAIL); //input email
         driver.findElement(xpath(Config.PASSWORD_FIELD)).sendKeys(ADMIN_PASSWORD); //input password
