@@ -7,6 +7,7 @@ public class Config {
     public static final String PLATFORM_NAME = "Android";
     public static final String AUTOMATION_NAME = "uiautomator2";
     public static String APP_PATH = System.getProperty("user.dir") + "\\apps\\app-debug.apk";
+    public static String APP_DEVICE_NAME = "Medium Phone API 35";
 
     public static String appiumServerURL = "http://127.0.0.1:4723";
 

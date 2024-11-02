@@ -20,10 +20,11 @@ public class Orders_Pending {
 
     @Test
     public void test() throws Exception {
-        //login
+        // login
         Coop coop = new Coop();
         driver = coop.coop_login();
 
+        // Element IDs
         String ORDERS_PAGE = "android:id/ordersPage";
         String PENDING_BUTTON = "android:id/PendingButton";
         String FIRST_ORDER_ON_LIST = "android:id/OrderItem_1";
@@ -36,39 +37,60 @@ public class Orders_Pending {
         String AcceptOrderDialog_CANCEL_BUTTON = "android:id/PendingOrderDismissButton";
         String AcceptOrderDialog_ACCEPT_BUTTON = "android:id/PendingOrderConfirmButton";
 
-// check if there are any orders in the list
+        // Navigate to Orders Page
+        driver.findElement(AppiumBy.id(ORDERS_PAGE)).click();
+
+        // Click on Pending Button
+        driver.findElement(AppiumBy.id(PENDING_BUTTON)).click();
+
+        // Check if there are any orders in the list
         List<WebElement> orders = driver.findElements(AppiumBy.id(FIRST_ORDER_ON_LIST));
         if (orders.isEmpty()) {
-            // no orders found, proceed to logout
+            // No orders found, proceed to logout
             System.out.println("No orders found. Proceeding to logout...");
             coop.coop_logout();
         } else {
-            //navigate to Orders Page
-            driver.findElement(AppiumBy.id(ORDERS_PAGE)).click();
+            // Iterate over each order in the list
+            for (WebElement order : orders) {
+                // Click on the first order in the list
+                order.click();
 
-            //click on Pending Button
-            driver.findElement(AppiumBy.id(PENDING_BUTTON)).click();
+                // Reject order - Cancel the reject
+                driver.findElement(AppiumBy.id(REJECT_BUTTON)).click();
+                driver.findElement(AppiumBy.id(RejectOrderDialog_CANCEL_BUTTON)).click();
 
-            //click on X icon then cancel order
-            driver.findElement(AppiumBy.id(FIRST_ORDER_ON_LIST)).click();
-            driver.findElement(AppiumBy.id(REJECT_BUTTON)).click();
-            driver.findElement(AppiumBy.id(RejectOrderDialog_CANCEL_BUTTON)).click();
+                // Reject order - Confirm the reject
+                driver.findElement(AppiumBy.id(REJECT_BUTTON)).click();
+                driver.findElement(AppiumBy.id(RejectOrderDialog_REJECT_BUTTON)).click();
 
-            //click on Reject then Reject order
-            driver.findElement(AppiumBy.id(FIRST_ORDER_ON_LIST)).click();
-            driver.findElement(AppiumBy.id(REJECT_BUTTON)).click();
-            driver.findElement(AppiumBy.id(RejectOrderDialog_REJECT_BUTTON)).click();
+                // After rejection, check if there are still orders in the list
+                orders = driver.findElements(AppiumBy.id(FIRST_ORDER_ON_LIST));
+                if (orders.isEmpty()) {
+                    System.out.println("No more orders available after rejection. Proceeding to logout...");
+                    break;
+                }
 
-            //click on Check icon then cancel order
-            driver.findElement(AppiumBy.id(FIRST_ORDER_ON_LIST)).click();
-            driver.findElement(AppiumBy.id(ACCEPT_BUTTON)).click();
-            driver.findElement(AppiumBy.id(AcceptOrderDialog_CANCEL_BUTTON)).click();
+                // Click on the first order in the list again
+                orders.get(0).click();
 
-            //click on Check icon then accept order
-            driver.findElement(AppiumBy.id(FIRST_ORDER_ON_LIST)).click();
-            driver.findElement(AppiumBy.id(ACCEPT_BUTTON)).click();
-            driver.findElement(AppiumBy.id(AcceptOrderDialog_ACCEPT_BUTTON)).click();
+                // Accept order - Cancel the acceptance
+                driver.findElement(AppiumBy.id(ACCEPT_BUTTON)).click();
+                driver.findElement(AppiumBy.id(AcceptOrderDialog_CANCEL_BUTTON)).click();
 
+                // Accept order - Confirm the acceptance
+                driver.findElement(AppiumBy.id(ACCEPT_BUTTON)).click();
+                driver.findElement(AppiumBy.id(AcceptOrderDialog_ACCEPT_BUTTON)).click();
+
+                // Check again if there are more orders
+                orders = driver.findElements(AppiumBy.id(FIRST_ORDER_ON_LIST));
+                if (orders.isEmpty()) {
+                    System.out.println("No more orders available after acceptance. Proceeding to logout...");
+                    break;
+                }
+            }
+
+            // Proceed to logout after processing all orders
+//            coop.coop_logout();
         }
     }
 }
