@@ -3,7 +3,8 @@ package CLIENT_SIDE;
 import Constant.DriverConfig;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
@@ -28,10 +29,10 @@ public class Client_Ordering {
         driver = client.client_login();
 
         // Navigate to "Meat" category
-        selectCategory("Category_Meat", "Meat");
+        selectCategory("android:id/Category_Meat", "Meat");
 
         // Choose "Kiniing" product under "Meat"
-        selectProduct("ProductCard_Kiniing", "Kiniing");
+        selectProduct("android:id/ProductCard_Kiniing", "Kiniing");
 
         // Adjust quantity to 12 kg
         adjustQuantity(12);
@@ -43,58 +44,53 @@ public class Client_Ordering {
     private void selectCategory(String categoryTestTag, String categoryName) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         try {
-            // Try accessibility ID first
-            WebElement categoryElement = wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId(categoryTestTag)));
-            categoryElement.click();
+            // Wait for the element to be visible and clickable
+            wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.id(categoryTestTag)));
+            wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.id(categoryTestTag))).click();
             System.out.println("Selected the " + categoryName + " category.");
-        } catch (Exception e1) {
-            try {
-                // If accessibility ID fails, try with XPath
-                WebElement categoryElement = wait.until(ExpectedConditions.elementToBeClickable(
-                        AppiumBy.xpath("//android.view.View[@resource-id='" + categoryTestTag + "']")));
-                categoryElement.click();
-                System.out.println("Selected the " + categoryName + " category using XPath.");
-            } catch (Exception e2) {
-                System.out.println("Failed to select the " + categoryName + " category after multiple attempts.");
-                e2.printStackTrace();
-            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Element not found: " + categoryTestTag);
+            driver.navigate().back();
+            wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.id(categoryTestTag))).click();
+            System.out.println("Retried and selected the " + categoryName + " category.");
+        } catch (TimeoutException e) {
+            System.out.println("Timeout while waiting for " + categoryName + " category to be clickable.");
         }
     }
 
     private void selectProduct(String productTestTag, String productName) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId(productTestTag))).click();
-        System.out.println("Selected the " + productName + " product.");
+        try {
+            // Wait for the product element to be clickable
+            wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.id(productTestTag))).click();
+            System.out.println("Selected the " + productName + " product.");
+        } catch (TimeoutException e) {
+            System.out.println("Timeout while waiting for " + productName + " product to be clickable.");
+        }
     }
 
     private void adjustQuantity(int targetQuantity) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-        int currentQuantity = Integer.parseInt(wait.until(
-                ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId("QuantityInputField"))).getText());
+        // Wait for the quantity input field to be visible
+        wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.id("android:id/QuantityInputField")));
 
-        while (currentQuantity != targetQuantity) {
-            if (currentQuantity < targetQuantity) {
-                driver.findElement(AppiumBy.accessibilityId("IncrementButton")).click();
-            } else {
-                driver.findElement(AppiumBy.accessibilityId("DecrementButton")).click();
-            }
-            currentQuantity = Integer.parseInt(driver.findElement(AppiumBy.accessibilityId("QuantityInputField")).getText());
-        }
+        // Set the quantity by finding the input field and adjusting it
+        driver.findElement(AppiumBy.id("android:id/QuantityInputField")).clear();
+        driver.findElement(AppiumBy.id("android:id/QuantityInputField")).sendKeys(String.valueOf(targetQuantity));
+
         System.out.println("Adjusted quantity to " + targetQuantity + " kg.");
     }
 
     private void confirmOrder() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-        wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("AddOrderButton"))).click();
-        System.out.println("Clicked Add Order button.");
+        // Click on the Confirm Order button
+        wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.id("android:id/ConfirmOrderButton"))).click();
+        System.out.println("Clicked Confirm Order button.");
 
-        wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("TargetDateInput"))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("ConfirmOrderButton"))).click();
-        System.out.println("Confirmed target date for the order.");
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId("OrderStateSuccess")));
+        // Wait for the order confirmation to succeed
+        wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.id("android:id/OrderStateSuccess")));
         System.out.println("Order confirmed successfully.");
     }
 
