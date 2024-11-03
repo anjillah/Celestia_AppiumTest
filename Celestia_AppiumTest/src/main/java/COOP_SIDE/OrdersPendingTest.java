@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import java.net.MalformedURLException;
 import java.util.List;
 
-public class Orders_Pending {
+public class OrdersPendingTest {
     private AndroidDriver driver;
 
     @BeforeTest
