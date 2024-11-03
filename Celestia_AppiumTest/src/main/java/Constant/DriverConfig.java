@@ -16,6 +16,7 @@ public class DriverConfig {
         capabilities.setCapability("platformName", Config.PLATFORM_NAME);
         capabilities.setCapability("appium:automationName", Config.AUTOMATION_NAME);
         capabilities.setCapability("appium:app", Config.APP_PATH);
+        capabilities.setCapability("appium:deviceName", Config.APP_DEVICE_NAME);
 
         try {
             return new AndroidDriver(new URI(Config.appiumServerURL).toURL(), capabilities);
