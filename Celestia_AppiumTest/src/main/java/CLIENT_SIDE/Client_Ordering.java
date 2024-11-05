@@ -5,6 +5,8 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
@@ -15,7 +17,6 @@ import java.net.MalformedURLException;
 import java.time.Duration;
 
 public class Client_Ordering {
-
     private AndroidDriver driver;
 
     @BeforeTest
@@ -32,10 +33,13 @@ public class Client_Ordering {
         selectCategory("android:id/Category_Meat", "Meat");
 
         // Choose "Kiniing" product under "Meat"
-        selectProduct("android:id/ProductCard_Kiniing", "Kiniing");
+        selectProduct("android:id/ProductTypeCard_Kiniing", "Kiniing");
 
         // Adjust quantity to 12 kg
         adjustQuantity(12);
+
+        // Set the target date to November 30
+        selectTargetDate("November 30");
 
         // Confirm the order
         confirmOrder();
@@ -70,16 +74,35 @@ public class Client_Ordering {
     }
 
     private void adjustQuantity(int targetQuantity) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
 
         // Wait for the quantity input field to be visible
-        wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.id("android:id/QuantityInputField")));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.id("android:id/QuantityInputField"))); // Adjusted ID
 
-        // Set the quantity by finding the input field and adjusting it
-        driver.findElement(AppiumBy.id("android:id/QuantityInputField")).clear();
-        driver.findElement(AppiumBy.id("android:id/QuantityInputField")).sendKeys(String.valueOf(targetQuantity));
+            // Interact with the quantity input field
+            WebElement quantityInputField = driver.findElement(AppiumBy.id("android:id/QuantityInputField"));
+            quantityInputField.clear();
+            quantityInputField.sendKeys(String.valueOf(targetQuantity));
+            System.out.println("Adjusted quantity to " + targetQuantity + " kg.");
+        } catch (TimeoutException e) {
+            System.err.println("Quantity input field not found within timeout: " + e.getMessage());
+        } catch (WebDriverException e) {
+            System.err.println("An error occurred while interacting with the quantity input: " + e.getMessage());
+        }
+    }
 
-        System.out.println("Adjusted quantity to " + targetQuantity + " kg.");
+    private void selectTargetDate(String targetDate) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        // Open the date picker
+        wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.id("android:id/DateIconButton"))).click();
+
+        // Wait for the date options to be displayed and click on the specific date
+        // Assuming you need to find the button for November 30
+        wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.xpath("//android.widget.Button[contains(@text,'30')]"))).click();
+
+        System.out.println("Selected target date: " + targetDate);
     }
 
     private void confirmOrder() {
